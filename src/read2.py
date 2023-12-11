@@ -52,6 +52,8 @@ class ObjectDetection:
         global humanDetectionInstances
         global threshold
 
+        print(xyxys)
+
         if np.size(xyxys) > 0:
             humanDetectionInstances += 1
 
@@ -104,8 +106,8 @@ class ObjectDetection:
 
 
 # Testing the code
-detector = ObjectDetection(capture_index='https://10.0.0.10:8080/video') # selecting webcam
-# detector = ObjectDetection(capture_index=0)
+#detector = ObjectDetection(capture_index='https://10.0.0.10:8080/video') # selecting webcam
+detector = ObjectDetection(capture_index=0)
 detector()
 
 
