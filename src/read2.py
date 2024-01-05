@@ -79,8 +79,8 @@ class ObjectDetection:
         
         capture = cv2.VideoCapture(self.capture_index)
         assert capture.isOpened()
-        capture.set(cv2.CAP_PROP_FRAME_WIDTH, 630)
-        capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 340)
+        capture.set(cv2.CAP_PROP_FRAME_WIDTH, 630*2)
+        capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 340*2)
 
         while True: 
             start_time = time()
@@ -109,7 +109,3 @@ class ObjectDetection:
 #detector = ObjectDetection(capture_index='https://10.0.0.10:8080/video') # selecting webcam
 detector = ObjectDetection(capture_index=0)
 detector()
-
-
-        
-

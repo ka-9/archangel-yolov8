@@ -1,20 +1,21 @@
 import heapq
 import random
 import serial
+import serial.tools.list_ports
+from time import sleep
 
 #---------------------------------------------------------------------------------------------------------------------------------
 # bluetooth port setup
 # Find the Bluetooth COM port dynamically
 def find_com_port():
-    import serial.tools.list_ports
     ports = serial.tools.list_ports.comports()
     for port, _, _ in ports:
         if "Bluetooth" in port:
             return port
     return None
 
-bluetooth_port = find_com_port()
-ser = serial.Serial(bluetooth_port, 9600, timeout=1)
+bluetooth_port = "COM5"
+ser = serial.Serial(bluetooth_port, 38400, timeout=1)
 
 #---------------------------------------------------------------------------------------------------------------------------------
 # to send with bluetooth
@@ -23,8 +24,8 @@ def send_array_with_size(data_array):
     array_size = len(data_array)
     data_string = f"{array_size}," + ','.join(map(str, data_array)) + "\n"
  
-    #ser.write(data_string.encode('utf-8'))
-    #time.sleep(1)  # Allow time for data to be sent
+    ser.write(data_string.encode())
+    sleep(2)  # Allow time for data to be sent
 
 
 #---------------------------------------------------------------------------------------------------------------------------------
@@ -124,7 +125,7 @@ density = 0.4  # Adjust this value to control maze complexity
 
 
 maze = generate_random_maze(rows, cols, density)
-print_maze(maze)
+# print_maze(maze)
 
 start_cell = (0, 0)
 end_cell = (rows-1, cols-1)
@@ -132,9 +133,6 @@ end_cell = (rows-1, cols-1)
 # basically the matrix output will go instead of "maze", the rover position instead of "start_cell", and the person location instead of
 # "end_cell"
 result, path, text_directions = dijkstra_maze(maze, start_cell, end_cell)
-
-
-
 
 if result == "Maze is unsolvable":
     print(result)
@@ -144,3 +142,9 @@ else:
     print("Text Directions:")
     for direction in text_directions:
         print(direction)
+
+
+while True:
+    array_test = ["hello"]
+    sleep(2)
+    send_array_with_size(array_test)
